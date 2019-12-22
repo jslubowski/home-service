@@ -39,4 +39,8 @@ public class TodoEventService {
         return todoEventRepository.searchForEvents(text);
     }
 
+    public List<TodoEvent> searchForEventsForUser(String name, String user) {
+        return todoEventRepository.searchForEventsForUser(name);
+    }
+
 }

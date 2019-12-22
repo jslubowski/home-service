@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Data
 public class TodoEvent implements Serializable {
 
-    // == fields ==
+    // -------------------------------- fields --------------------------------
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long eventId;
@@ -36,11 +36,12 @@ public class TodoEvent implements Serializable {
     @Column(name="description")
     private String description;
 
-    @Column(name="owner")
-    private String owner;
+    @ManyToOne
+    @JoinColumn
+    private User owner;
 
 
-    // == equals and hashCode ==
+    // // -------------------------------- equals and hashCode --------------------------------
 
     @Override
     public boolean equals(Object o) {
@@ -70,7 +71,7 @@ public class TodoEvent implements Serializable {
                 .append(endDate)
                 .append(place)
                 .append(description)
-                .append(owner)
+                .append(owner.getUserName())
                 .toHashCode();
     }
 }
