@@ -21,7 +21,7 @@ public class TodoEventService {
         return events;
     }
 
-    public TodoEvent getTodoEvent(Integer id) {
+    public TodoEvent getTodoEvent(Long id) {
         return todoEventRepository.findById(id).get();
     }
 
@@ -30,7 +30,7 @@ public class TodoEventService {
     }
 
 
-    public void deleteEvent(Integer id) {
+    public void deleteEvent(Long id) {
         TodoEvent event = todoEventRepository.findById(id).get();
         todoEventRepository.delete(event);
     }

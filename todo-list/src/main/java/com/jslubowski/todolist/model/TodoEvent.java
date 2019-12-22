@@ -12,7 +12,7 @@ public class TodoEvent implements Serializable {
 
     // == fields ==
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long eventId;
 
     @Column(name="name")
@@ -36,6 +36,10 @@ public class TodoEvent implements Serializable {
     @Column(name="description")
     private String description;
 
+    @Column(name="owner")
+    private String owner;
+
+
     // == equals and hashCode ==
 
     @Override
@@ -51,7 +55,8 @@ public class TodoEvent implements Serializable {
         if (!beginDate.equals(event.beginDate)) return false;
         if (!endDate.equals(event.endDate)) return false;
         if (!place.equals(event.place)) return false;
-        return description.equals(event.description);
+        if (!description.equals(event.description)) return false;
+        return owner.equals(event.owner);
     }
 
     @Override
@@ -65,6 +70,7 @@ public class TodoEvent implements Serializable {
                 .append(endDate)
                 .append(place)
                 .append(description)
+                .append(owner)
                 .toHashCode();
     }
 }
