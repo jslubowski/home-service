@@ -1,4 +1,4 @@
-package com.jslubowski.todolist.model;
+package com.jslubowski.mainservice.model;
 
 import lombok.Data;
 import org.apache.commons.lang3.builder.HashCodeBuilder;

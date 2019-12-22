@@ -1,7 +1,7 @@
-package com.jslubowski.todolist.service;
+package com.jslubowski.mainservice.service;
 
-import com.jslubowski.todolist.model.TodoEvent;
-import com.jslubowski.todolist.repository.TodoEventRepository;
+import com.jslubowski.mainservice.model.TodoEvent;
+import com.jslubowski.mainservice.repository.TodoEventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

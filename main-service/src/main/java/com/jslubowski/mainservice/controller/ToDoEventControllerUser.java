@@ -1,4 +1,4 @@
-package com.jslubowski.todolist.controller;
+package com.jslubowski.mainservice.controller;
 
 import com.jslubowski.todolist.model.TodoEvent;
 import com.jslubowski.todolist.service.TodoEventService;
@@ -7,40 +7,34 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
-public class TodoEventControllerAdmin {
+public class ToDoEventControllerUser {
 
     @Autowired
     private TodoEventService todoEventService;
 
-    /*
-    * Admin mappings - crud operation without checking for ownership
-     */
-
-    @RequestMapping("/admin/events")
+    @RequestMapping("/{userId}/events")
     public List<TodoEvent> getAllTodoEvents(){
         return todoEventService.getAllEvents();
     }
 
-    @RequestMapping("/admin/events/{id}")
+    @RequestMapping("/{userId}/events/{id}")
     public TodoEvent getEventById(@PathVariable("id") String id){
         return todoEventService.getTodoEvent(Long.parseLong(id));
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/admin/events")
+    @RequestMapping(method = RequestMethod.POST, value = "/{userId}/events")
     public void addEvent(@RequestBody TodoEvent event){
         todoEventService.addEvent(event);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/admin/events/{id}")
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{userId}/events/{id}")
     public void deleteTopic(@PathVariable("id") String id){
         todoEventService.deleteEvent(Long.parseLong(id));
     }
 
-    @RequestMapping("/admin/events/search/{text}")
+    @RequestMapping("/{userId}/events/search/{text}")
     public List<TodoEvent> searchForEvents(@PathVariable("text") String text){
         return todoEventService.searchForEvents(text);
     }
-
 }

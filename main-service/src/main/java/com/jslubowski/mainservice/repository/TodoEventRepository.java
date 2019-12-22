@@ -1,6 +1,7 @@
-package com.jslubowski.todolist.repository;
+package com.jslubowski.mainservice.repository;
 
-import com.jslubowski.todolist.model.TodoEvent;
+
+import com.jslubowski.mainservice.model.TodoEvent;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
