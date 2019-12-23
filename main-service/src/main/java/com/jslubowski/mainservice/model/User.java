@@ -10,12 +10,8 @@ import javax.persistence.*;
 public class User {
 
     // -------------------------------- fields --------------------------------
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-
     @Column(name = "user_name")
-    @JsonIgnore
+    @Id
     private String userName;
 
     @JsonIgnore

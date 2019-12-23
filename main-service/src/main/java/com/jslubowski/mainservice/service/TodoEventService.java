@@ -25,6 +25,10 @@ public class TodoEventService {
         return todoEventRepository.findById(id).get();
     }
 
+    public TodoEvent getTodoEventForUser(Long id, String username){
+        return todoEventRepository.getTodoEventForUser(username, id);
+    }
+
     public void addEvent(TodoEvent event) {
         todoEventRepository.save(event);
     }
@@ -39,8 +43,17 @@ public class TodoEventService {
         return todoEventRepository.searchForEvents(text);
     }
 
-    public List<TodoEvent> searchForEventsForUser(String name, String user) {
-        return todoEventRepository.searchForEventsForUser(name);
+    public List<TodoEvent> searchForEventForUser(String name, String userName) {
+        return todoEventRepository.searchForEventForUser(name, userName);
     }
+
+    public List<TodoEvent> getAllEventsForUser(String username){
+        return todoEventRepository.getAllEventsForUser(username);
+    }
+
+    public void deleteEventForUser(Long id, String username){
+        todoEventRepository.deleteEventForUser(id, username);
+    }
+
 
 }

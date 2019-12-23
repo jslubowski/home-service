@@ -4,7 +4,10 @@ package com.jslubowski.mainservice.controller;
 import com.jslubowski.mainservice.model.TodoEvent;
 import com.jslubowski.mainservice.service.TodoEventService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
@@ -16,41 +19,56 @@ public class ToDoEventControllerUser {
     private TodoEventService todoEventService;
 
     /*
-        All mappings created for particular user
+        All mappings created for the user that is in session
      */
 
     // ------------------------------------ Get All Events -------------------------------------------------------
 
-    @RequestMapping("/{userId}/events")
-    public List<TodoEvent> getAllTodoEvents(){
-        return todoEventService.getAllEvents();
+
+    @RequestMapping("/user/events")
+    public List<TodoEvent> getAllEventsForUser(){
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetails.getUsername();
+        return todoEventService.getAllEventsForUser(username);
     }
+
 
     // ------------------------------------ Get one event -------------------------------------------------------
 
-    @RequestMapping("/{userId}/events/{id}")
-    public TodoEvent getEventById(@PathVariable("id") String id){
-        return todoEventService.getTodoEvent(Long.parseLong(id));
+    // TODO Custom query
+    @RequestMapping("/user/events/{id}")
+    public TodoEvent getEventById(@PathVariable("id") Long id){
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetails.getUsername();
+        return todoEventService.getTodoEventForUser(id, username);
     }
+
 
     // ------------------------------------ Add one event -------------------------------------------------------
 
-    @RequestMapping(method = RequestMethod.POST, value = "/{userId}/events")
+    @RequestMapping(method = RequestMethod.POST, value = "/user/events")
     public void addEvent(@RequestBody TodoEvent event){
+        // TODO How?
         todoEventService.addEvent(event);
     }
 
+
     // ------------------------------------ Delete one event -------------------------------------------------------
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/{userId}/events/{id}")
+    @RequestMapping(method = RequestMethod.DELETE, value = "/user/events/{id}")
     public void deleteTopic(@PathVariable("id") String id){
-        todoEventService.deleteEvent(Long.parseLong(id));
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetails.getUsername();
+        todoEventService.deleteEventForUser(Long.parseLong(id), username);
     }
 
-    // ------------------------------------ Saerch through events -------------------------------------------------------
 
-    @RequestMapping("/{userId}/events/search/{name}")
-    public List<TodoEvent> searchForEvents(@PathVariable("name") String name, @PathVariable("userId") String user){
-        return todoEventService.searchForEventsForUser(name, user);
+    // ------------------------------------ Search through events for user -------------------------------------------------------
+
+    @RequestMapping("/user/events/search/{name}")
+    public List<TodoEvent> searchForEvents(@PathVariable("name") String name){
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetails.getUsername();
+        return todoEventService.searchForEventForUser(name, username);
     }
 }
