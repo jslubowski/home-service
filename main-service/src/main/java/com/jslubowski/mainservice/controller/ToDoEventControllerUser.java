@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/user")
 public class ToDoEventControllerUser {
 
 
@@ -25,7 +26,7 @@ public class ToDoEventControllerUser {
     // ------------------------------------ Get All Events -------------------------------------------------------
 
 
-    @RequestMapping("/user/events")
+    @RequestMapping("/events")
     public List<TodoEvent> getAllEventsForUser(){
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userDetails.getUsername();
@@ -35,8 +36,8 @@ public class ToDoEventControllerUser {
 
     // ------------------------------------ Get one event -------------------------------------------------------
 
-    // TODO Custom query
-    @RequestMapping("/user/events/{id}")
+
+    @RequestMapping("/events/{id}")
     public TodoEvent getEventById(@PathVariable("id") Long id){
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userDetails.getUsername();
@@ -46,7 +47,7 @@ public class ToDoEventControllerUser {
 
     // ------------------------------------ Add one event -------------------------------------------------------
 
-    @RequestMapping(method = RequestMethod.POST, value = "/user/events")
+    @RequestMapping(method = RequestMethod.POST, value = "/events")
     public void addEvent(@RequestBody TodoEvent event){
         // TODO How?
         todoEventService.addEvent(event);
@@ -55,7 +56,7 @@ public class ToDoEventControllerUser {
 
     // ------------------------------------ Delete one event -------------------------------------------------------
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/user/events/{id}")
+    @RequestMapping(method = RequestMethod.DELETE, value = "/events/{id}")
     public void deleteTopic(@PathVariable("id") String id){
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userDetails.getUsername();
@@ -65,7 +66,7 @@ public class ToDoEventControllerUser {
 
     // ------------------------------------ Search through events for user -------------------------------------------------------
 
-    @RequestMapping("/user/events/search/{name}")
+    @RequestMapping("/events/search/{name}")
     public List<TodoEvent> searchForEvents(@PathVariable("name") String name){
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userDetails.getUsername();

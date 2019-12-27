@@ -25,7 +25,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic()
                 .and()
-                .csrf().disable() // DISABLED BECAUSE POSTMAN DOESN'T WORK
+                .csrf().disable() // DISABLED BECAUSE POSTMAN DOESN'T WORK OTHERWISE
                 .authorizeRequests()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/user/**").hasRole("USER")

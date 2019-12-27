@@ -31,7 +31,7 @@ public class TodoEvent implements Serializable {
     private String endDate;
 
     @Column(name="place")
-    private String place;
+    private String location;
 
     @Column(name="description")
     private String description;
@@ -55,7 +55,7 @@ public class TodoEvent implements Serializable {
         if (!endTime.equals(event.endTime)) return false;
         if (!beginDate.equals(event.beginDate)) return false;
         if (!endDate.equals(event.endDate)) return false;
-        if (!place.equals(event.place)) return false;
+        if (!location.equals(event.location)) return false;
         if (!description.equals(event.description)) return false;
         return owner.equals(event.owner);
     }
@@ -69,7 +69,7 @@ public class TodoEvent implements Serializable {
                 .append(endTime)
                 .append(beginDate)
                 .append(endDate)
-                .append(place)
+                .append(location)
                 .append(description)
                 .append(owner.getUserName())
                 .toHashCode();
