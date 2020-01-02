@@ -5,14 +5,15 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Data
 public class TodoEvent implements Serializable {
 
-    // -------------------------------- fields --------------------------------
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long eventId;
 
     @Column(name="name")
@@ -40,38 +41,20 @@ public class TodoEvent implements Serializable {
     @JoinColumn
     private User owner;
 
+    @Transient
+    private String uuid = UUID.randomUUID().toString();
 
-    // // -------------------------------- equals and hashCode --------------------------------
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof TodoEvent)) return false;
-
-        TodoEvent event = (TodoEvent) o;
-
-        if (!name.equals(event.name)) return false;
-        if (!beginTime.equals(event.beginTime)) return false;
-        if (!endTime.equals(event.endTime)) return false;
-        if (!beginDate.equals(event.beginDate)) return false;
-        if (!endDate.equals(event.endDate)) return false;
-        if (!location.equals(event.location)) return false;
-        if (!description.equals(event.description)) return false;
-        return owner.equals(event.owner);
+    public boolean equals(Object that) {
+        return this == that || that instanceof TodoEvent
+                && Objects.equals(uuid, ((TodoEvent) that).uuid);
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder()
-                .append(eventId)
-                .append(name)
-                .append(beginTime)
-                .append(endTime)
-                .append(beginDate)
-                .append(endDate)
-                .append(location)
-                .append(description)
-                .append(owner.getUserName())
+                .append(uuid)
                 .toHashCode();
     }
 }

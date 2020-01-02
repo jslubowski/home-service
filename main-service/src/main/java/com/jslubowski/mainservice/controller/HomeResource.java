@@ -7,10 +7,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class HomeResource {
 
     /*
+        TODO
         Prototype welcome screens
      */
 
-    @GetMapping("/")
+    @GetMapping
     public String home(){
         return ("<h1>Welcome</h1");
     }

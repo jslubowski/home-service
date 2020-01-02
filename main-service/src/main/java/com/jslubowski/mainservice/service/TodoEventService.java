@@ -1,18 +1,21 @@
 package com.jslubowski.mainservice.service;
 
+import com.jslubowski.mainservice.exceptions.EventNotFoundException;
 import com.jslubowski.mainservice.model.TodoEvent;
 import com.jslubowski.mainservice.repository.TodoEventRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class TodoEventService {
 
-    @Autowired
-    TodoEventRepository todoEventRepository;
+    private final TodoEventRepository todoEventRepository;
 
     public List<TodoEvent> getAllEvents(){
         List<TodoEvent> events = new ArrayList<>();
@@ -21,7 +24,9 @@ public class TodoEventService {
         return events;
     }
 
-    public TodoEvent getTodoEvent(Long id) {
+    public TodoEvent getTodoEvent(Long id) throws EventNotFoundException {
+        Optional<TodoEvent> event = todoEventRepository.findById(id);
+        event.orElseThrow(()-> new EventNotFoundException("Event of id: " + id + " doesn't exist."));
         return todoEventRepository.findById(id).get();
     }
 
