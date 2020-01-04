@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Data
 public class User {
 
-    // -------------------------------- fields --------------------------------
     @Column(name = "user_name")
     @Id
     private String userName;

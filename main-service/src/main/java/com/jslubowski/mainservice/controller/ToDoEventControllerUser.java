@@ -33,7 +33,7 @@ public class ToDoEventControllerUser {
 
     @PostMapping(value = "/events")
     public void addEvent(@RequestBody TodoEvent event, Principal principal){
-        // TODO How?
+        // TODO
         todoEventService.addEvent(event);
     }
 

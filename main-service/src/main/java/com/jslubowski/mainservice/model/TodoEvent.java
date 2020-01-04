@@ -1,5 +1,6 @@
 package com.jslubowski.mainservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -16,7 +17,6 @@ public class TodoEvent implements Serializable {
     @GeneratedValue
     private Long eventId;
 
-    @Column(name="name")
     private String name;
 
     @Column(name="begin_time")
@@ -31,17 +31,16 @@ public class TodoEvent implements Serializable {
     @Column(name="end_date")
     private String endDate;
 
-    @Column(name="place")
     private String location;
 
-    @Column(name="description")
     private String description;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "user_name")
     private User owner;
 
     @Transient
+    @JsonIgnore
     private String uuid = UUID.randomUUID().toString();
 
 
