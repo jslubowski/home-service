@@ -2,11 +2,16 @@ package com.jslubowski.mainservice.service;
 
 import com.jslubowski.mainservice.exceptions.EventNotFoundException;
 import com.jslubowski.mainservice.model.TodoEvent;
+import com.jslubowski.mainservice.model.User;
 import com.jslubowski.mainservice.repository.TodoEventRepository;
+import com.jslubowski.mainservice.repository.UserRepository;
+import com.jslubowski.mainservice.util.Utilities;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +21,7 @@ import java.util.Optional;
 public class TodoEventService {
 
     private final TodoEventRepository todoEventRepository;
+    private final UserRepository userRepository;
 
     public List<TodoEvent> getAllEvents(){
         List<TodoEvent> events = new ArrayList<>();
@@ -38,6 +44,13 @@ public class TodoEventService {
         todoEventRepository.save(event);
     }
 
+    public void addEventForUser(TodoEvent event, Principal principal){
+        String username = Utilities.currentUserName(principal);
+        Optional<User> user = userRepository.findByUserName(username);
+        user.orElseThrow(() -> new UsernameNotFoundException("Not found: " + username));
+        event.setOwner(user.get());
+        todoEventRepository.save(event);
+    }
 
     public void deleteEvent(Long id) {
         TodoEvent event = todoEventRepository.findById(id).get();

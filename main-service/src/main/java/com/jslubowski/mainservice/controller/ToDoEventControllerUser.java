@@ -1,14 +1,10 @@
 package com.jslubowski.mainservice.controller;
 
-
 import com.jslubowski.mainservice.model.TodoEvent;
 import com.jslubowski.mainservice.service.TodoEventService;
-
 import com.jslubowski.mainservice.util.Utilities;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-
 import java.security.Principal;
 import java.util.List;
 
@@ -34,7 +30,7 @@ public class ToDoEventControllerUser {
     @PostMapping(value = "/events")
     public void addEvent(@RequestBody TodoEvent event, Principal principal){
         // TODO
-        todoEventService.addEvent(event);
+        todoEventService.addEventForUser(event, principal);
     }
 
     @DeleteMapping(value = "/events/{id}")
