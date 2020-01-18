@@ -22,5 +22,4 @@ public class Weather {
     private final String sunrise;
     @Getter
     private final double temperature;
-
 }

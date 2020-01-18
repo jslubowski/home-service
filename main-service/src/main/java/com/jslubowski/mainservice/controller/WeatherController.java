@@ -1,5 +1,6 @@
 package com.jslubowski.mainservice.controller;
 
+import com.jslubowski.mainservice.model.Weather;
 import com.jslubowski.mainservice.service.WeatherService;
 import com.jslubowski.mainservice.util.Utilities;
 import lombok.RequiredArgsConstructor;
@@ -14,13 +15,13 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class WeatherController {
 
-
     private final WeatherService weatherService;
 
     @GetMapping("/user/events/{id}/weather")
     public String getWeatherForecast(@PathVariable Long id, Principal principal){
         String userName = Utilities.currentUserName(principal);
-        return weatherService.getWeatherForTodayLocation(id, userName).toString();
+        Weather weather = weatherService.getWeatherForTodayLocation(id, userName);
+        return weatherService.getWeatherAsJson(weather);
     }
 
 }

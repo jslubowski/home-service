@@ -31,8 +31,11 @@ public class WeatherService {
                 .block();
         JsonNode node = jsonWeatherParserService.extractDataNode(jsonAnswer);
         Weather weather = jsonWeatherParserService.getWeatherObject(node);
-
         return weather;
+    }
+
+    public String getWeatherAsJson(Weather weather){
+        return jsonWeatherParserService.convertWeatherToJson(weather);
     }
 
 }

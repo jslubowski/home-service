@@ -1,11 +1,15 @@
 package com.jslubowski.mainservice.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jslubowski.mainservice.model.Weather;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.IOException;
 
+@Slf4j
 @RequiredArgsConstructor
 public class JsonWeatherParserService {
 
@@ -33,6 +37,15 @@ public class JsonWeatherParserService {
                 .sunrise(node.get("sunrise").toString().replace("\"", ""))
                 .temperature(Double.parseDouble(node.get("temp").toString()))
                 .build();
+    }
+
+    public String convertWeatherToJson(Weather weather){
+        try{
+            return objectMapper.writeValueAsString(weather);
+        }catch(JsonProcessingException e){
+            log.error("Couldn't parse Weather to JSON");
+        }
+        return null;
     }
 
 }
