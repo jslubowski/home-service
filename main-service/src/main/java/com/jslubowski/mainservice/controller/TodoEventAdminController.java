@@ -1,19 +1,16 @@
 package com.jslubowski.mainservice.controller;
 
-
 import com.jslubowski.mainservice.exceptions.EventNotFoundException;
 import com.jslubowski.mainservice.model.TodoEvent;
 import com.jslubowski.mainservice.service.TodoEventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admin")
-public class TodoEventControllerAdmin {
+public class TodoEventAdminController {
 
     private final TodoEventService todoEventService;
 

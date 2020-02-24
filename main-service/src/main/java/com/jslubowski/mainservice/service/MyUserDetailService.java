@@ -4,7 +4,6 @@ import com.jslubowski.mainservice.model.MyUserDetails;
 import com.jslubowski.mainservice.model.User;
 import com.jslubowski.mainservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Service;
 

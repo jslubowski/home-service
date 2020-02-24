@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
-public class ToDoEventControllerUser {
+public class ToDoEventUserController {
 
     private final TodoEventService todoEventService;
 
